@@ -13,6 +13,10 @@ const proxyBears = new Proxy(bears, {
       throw new Error("Not a known type of bear");
     }
     target[prop] = !value;
+  },
+  deleteProperty: (target, prop) => {
+    console.log("you have deleted" + prop);
+    delete target[prop];
   }
 });
 
@@ -20,3 +24,6 @@ const proxyBears = new Proxy(bears, {
 
 proxyBears.polar = true;
 console.log(bears.polar); // returns value altered by proxy
+
+delete proxyBears.polar; // logs message when deleted
+delete bears.polar; // does not log message

@@ -22,8 +22,20 @@ const proxyBears = new Proxy(bears, {
 
 //proxyBears.asdf = true; // Get error
 
-proxyBears.polar = true;
-console.log(bears.polar); // returns value altered by proxy
+// proxyBears.polar = true;
+// console.log(bears.polar); // returns value altered by proxy
 
-delete proxyBears.polar; // logs message when deleted
-delete bears.polar; // does not log message
+// delete proxyBears.polar; // logs message when deleted
+// delete bears.polar; // does not log message
+
+function growl() {
+  return "grrr";
+}
+
+const loudGrowl = new Proxy(growl, {
+  apply: (target, thisArg, args) => {
+    return target().toUpperCase() + "!!!";
+  }
+});
+
+console.log(loudGrowl());
